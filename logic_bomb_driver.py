@@ -113,12 +113,12 @@ class Driver:
         for trigger in self.all_triggers:
             print(f"{trigger.__trigger_number__} - {trigger.__trigger_name__}")
 
+        print("Choice - ")
+        payload_choice = int(input())
+
         print("Choose a payload - ")
         for payload in self.all_payloads:
             print(f"{payload.__payload_number__} - {payload.__payload_name__}")
-
-        print("Choice - ")
-        payload_choice = int(input())
 
         print("Choice - ")
         trigger_choice = int(input())
@@ -158,4 +158,4 @@ class Driver:
 if __name__ == "__main__":
     driver_obj = Driver()
     driver_obj.disclaimer()
-    # driver_obj.start()
+    driver_obj.start()
