@@ -57,7 +57,7 @@ class FileCreator:
         trigger_files = []
 
         for dir in self.directory_to_store:
-            dir_to_store = f"{self.root_directory}/{dir}{self.get_file_name()}/"
+            dir_to_store = f"{self.root_directory}{dir}{self.get_file_name()}/"
 
             if not isdir(dir_to_store):
                 makedirs(dir_to_store, exist_ok=True)

