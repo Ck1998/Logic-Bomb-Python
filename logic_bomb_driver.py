@@ -68,12 +68,15 @@ class Driver:
         trigger_files = []
         for trigger in self.all_triggers:
             if trigger.__trigger_number__ == trigger_number:
-                for payload_file in payload_files:
-                    if trigger.__takes_input__:
-                        print(f"Enter the value for {trigger.__input_name__} - ")
-                        trigger_variable = input()
-                        trigger_code = trigger().get_trigger(payload=payload_file, triggering_entity=trigger_variable)
+                if trigger.__takes_input__:
+                    print(f"Enter the value for {trigger.__input_name__} - ")
+                    trigger_variable = input()
+                else:
+                    trigger_variable = None
 
+                for payload_file in payload_files:
+                    if trigger_variable:
+                        trigger_code = trigger().get_trigger(payload=payload_file, triggering_entity=trigger_variable)
                     else:
                         trigger_code = trigger().get_trigger(payload_file, None)
 

