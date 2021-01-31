@@ -85,9 +85,10 @@ class Driver:
 
                 for payload_file in payload_files:
                     if trigger_variable:
-                        trigger_code = trigger().get_trigger(payload=payload_file, triggering_entity=trigger_variable)
+                        trigger_code = trigger().get_trigger(payload=payload_file, triggering_entity=trigger_variable,
+                                                             os=self.CURRENT_OS)
                     else:
-                        trigger_code = trigger().get_trigger(payload_file, None)
+                        trigger_code = trigger().get_trigger(payload_file, triggering_entity=None, os=self.CURRENT_OS)
 
                     trigger_files += self.file_creator_obj.create_trigger_files(trigger_code)
                 break
