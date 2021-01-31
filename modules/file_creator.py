@@ -18,9 +18,9 @@ class FileCreator:
             ".this_is_good/",
             ".hehe/",
             ".gotchu/",
-            f"{self.get_file_name()}/",
-            f"{self.get_file_name()}/",
-            f"{self.get_file_name()}/"
+            f".{self.get_file_name()}/",
+            f".{self.get_file_name()}/",
+            f".{self.get_file_name()}/"
         ]
         if self.os == "Windows":
             self.ext = "bat"
@@ -29,7 +29,7 @@ class FileCreator:
 
     @staticmethod
     def get_file_name():
-        return str(b64encode(str(uuid1()).encode('utf-8'))).replace("=", "")
+        return b64encode(str(uuid1()).encode('utf-8')).decode('utf-8')
 
     def create_payload_files(self, payload_code):
         payload_files = []

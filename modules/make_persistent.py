@@ -11,7 +11,7 @@ class MakePersistent:
 
     @staticmethod
     def get_file_name():
-        return str(b64encode(uuid1())).replace("=", "")
+        return b64encode(str(uuid1()).encode('utf-8')).decode('utf-8')
 
     @staticmethod
     def create_service_file_content(file_path):

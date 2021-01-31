@@ -8,7 +8,7 @@ class BasePayload(object):
 
     @staticmethod
     def get_file_name():
-        return str(b64encode(uuid1())).replace("=", "")
+        return b64encode(str(uuid1()).encode('utf-8')).decode('utf-8')
 
     def get_payload(self, current_os):
         return None
